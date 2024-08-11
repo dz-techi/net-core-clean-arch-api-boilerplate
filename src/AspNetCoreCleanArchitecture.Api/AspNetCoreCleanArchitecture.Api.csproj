@@ -8,7 +8,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AspNetCoreCleanArchitecture.Application\AspNetCoreCleanArchitecture.Application.csproj" />
+      <ProjectReference Include="..\AspNetCoreCleanArchitecture.Infrastructure\AspNetCoreCleanArchitecture.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
