@@ -5,15 +5,15 @@ using MongoDB.Driver;
 
 namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
-    private IMongoCollection<T> Collection { get; set; }
+    private IMongoCollection<T> Collection { get; }
 
-    private string CollectionName => "";
-
-    private BaseRepository(AppDbContext appDbContext)
+    protected abstract string CollectionName { get; }    
+    
+    protected BaseRepository(IAppDbContext appDbContext)
     {
-        Collection = appDbContext.GetCollection<T>(CollectionName);
+        Collection = appDbContext.GetCollection<T>(CollectionName);    
     }
 
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -21,5 +21,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         var filter = Builders<T>.Filter.Eq(e => e.Id, id);
 
         return await Collection.Find(filter).SingleOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<T?> AddAsync(T entityDto, CancellationToken cancellationToken)
+    {
+        await Collection.InsertOneAsync(entityDto, cancellationToken: cancellationToken);
+
+        return entityDto;
     }
 }

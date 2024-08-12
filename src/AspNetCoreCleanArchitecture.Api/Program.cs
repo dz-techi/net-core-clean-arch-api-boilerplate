@@ -1,5 +1,6 @@
 using AspNetCoreCleanArchitecture.Api;
 using AspNetCoreCleanArchitecture.Application;
+using AspNetCoreCleanArchitecture.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,9 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+
 builder.Services
     .AddApi(builder.Configuration)
-    .AddApplication();
+    .AddApplication()
+    .AddInfrastructure();
 
 var app = builder.Build();
 
@@ -22,5 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();

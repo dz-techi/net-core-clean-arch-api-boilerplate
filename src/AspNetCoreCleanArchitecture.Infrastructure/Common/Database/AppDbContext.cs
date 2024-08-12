@@ -1,21 +1,26 @@
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
 
-public class AppDbContext
+public class AppDbContext : IAppDbContext
 {
-    private readonly IMongoDatabase _database;
+    public IMongoDatabase Database { get; set; }
     
     public AppDbContext(IOptions<MongoDbSettings> mongoDbSettings)
     {
         var mongoClient = new MongoClient(mongoDbSettings.Value.ConnectionString);
         
-        _database = mongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);
+        Database = mongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);
+        
+        BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
     }
 
     public IMongoCollection<T> GetCollection<T>(string collectionName)
     {
-        return _database.GetCollection<T>(collectionName);
+        return Database.GetCollection<T>(collectionName);
     }
 }

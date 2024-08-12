@@ -5,4 +5,6 @@ namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfa
 public interface IBaseRepository<T> where T : BaseEntity
 {
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+    Task<T?> AddAsync(T entityDto, CancellationToken cancellationToken);
 }
