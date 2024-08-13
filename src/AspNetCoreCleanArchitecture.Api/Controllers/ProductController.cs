@@ -18,11 +18,6 @@ public class ProductController : BaseController
 
         var result = await _mediator.Send(getProductQuery, cancellationToken);
 
-        if (result == null)
-        {
-            return NotFound();
-        }
-
         return Ok(result);
     }
 

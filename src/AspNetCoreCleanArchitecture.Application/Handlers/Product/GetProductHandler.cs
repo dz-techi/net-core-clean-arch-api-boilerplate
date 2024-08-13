@@ -1,3 +1,4 @@
+using AspNetCoreCleanArchitecture.Application.Exceptions;
 using AspNetCoreCleanArchitecture.Application.Queries.Product;
 using AspNetCoreCleanArchitecture.Contracts.Results.Product;
 using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
@@ -17,15 +18,14 @@ public class GetProductHandler : IRequestHandler<GetProductQuery, GetProductResu
         _productRepository = productRepository;
     }
 
-    public async Task<GetProductResult?> Handle(GetProductQuery request, CancellationToken cancellationToken)
+    public async Task<GetProductResult> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         var productDto = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (productDto == null)
         {
             // TODO: Log message
-            
-            return null;
+            throw new EntityNotFoundException($"Entity with id: {request.ProductId} not found");
         }
 
         return _mapper.Map<GetProductResult>(productDto);

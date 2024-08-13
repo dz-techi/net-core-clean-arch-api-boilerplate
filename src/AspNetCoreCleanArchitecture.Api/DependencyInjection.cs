@@ -1,3 +1,4 @@
+using AspNetCoreCleanArchitecture.Api.Exceptions;
 using AspNetCoreCleanArchitecture.Infrastructure.Database;
 
 namespace AspNetCoreCleanArchitecture.Api;
@@ -8,6 +9,8 @@ public static class DependencyInjection
     {
         services.Configure<MongoDbSettings>(configuration.GetSection("MongoDB"));
 
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        
         return services;
     }
 }
