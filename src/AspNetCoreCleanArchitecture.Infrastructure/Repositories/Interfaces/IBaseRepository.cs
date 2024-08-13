@@ -1,6 +1,6 @@
 using AspNetCoreCleanArchitecture.Domain.Common;
 
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfaces;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
 
 public interface IBaseRepository<T> where T : BaseEntity
 {

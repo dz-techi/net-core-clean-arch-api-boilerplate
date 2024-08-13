@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Database;
 
 public class AppDbContext : IAppDbContext
 {

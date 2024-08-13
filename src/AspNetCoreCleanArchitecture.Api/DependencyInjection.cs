@@ -1,4 +1,4 @@
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
+using AspNetCoreCleanArchitecture.Infrastructure.Database;
 
 namespace AspNetCoreCleanArchitecture.Api;
 

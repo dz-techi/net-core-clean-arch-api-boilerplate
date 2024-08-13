@@ -1,5 +1,5 @@
 using AspNetCoreCleanArchitecture.Domain.Models;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfaces;
+using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreCleanArchitecture.Api.Controllers;

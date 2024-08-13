@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Database;
 
 public interface IAppDbContext
 {

@@ -1,19 +1,21 @@
 using AspNetCoreCleanArchitecture.Domain.Common;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfaces;
+using AspNetCoreCleanArchitecture.Infrastructure.Database;
+using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
 using MongoDB.Driver;
 
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Repositories;
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
-    private IMongoCollection<T> Collection { get; }
+    private IAppDbContext AppDbContext { get; }
+
+    private IMongoCollection<T> Collection => AppDbContext.GetCollection<T>(CollectionName);
 
     protected abstract string CollectionName { get; }    
     
     protected BaseRepository(IAppDbContext appDbContext)
     {
-        Collection = appDbContext.GetCollection<T>(CollectionName);    
+        AppDbContext = appDbContext;
     }
 
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)

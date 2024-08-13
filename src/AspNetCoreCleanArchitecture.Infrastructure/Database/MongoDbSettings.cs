@@ -1,4 +1,4 @@
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Database;
 
 public class MongoDbSettings
 {

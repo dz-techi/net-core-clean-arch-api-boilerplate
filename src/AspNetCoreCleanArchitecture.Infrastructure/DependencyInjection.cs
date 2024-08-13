@@ -1,6 +1,6 @@
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfaces;
+using AspNetCoreCleanArchitecture.Infrastructure.Database;
+using AspNetCoreCleanArchitecture.Infrastructure.Repositories;
+using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreCleanArchitecture.Infrastructure;

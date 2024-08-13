@@ -1,8 +1,8 @@
 using AspNetCoreCleanArchitecture.Domain.Models;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Database;
-using AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories.Interfaces;
+using AspNetCoreCleanArchitecture.Infrastructure.Database;
+using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
 
-namespace AspNetCoreCleanArchitecture.Infrastructure.Common.Repositories;
+namespace AspNetCoreCleanArchitecture.Infrastructure.Repositories;
 
 public class ProductRepository : BaseRepository<ProductDto>, IProductRepository
 {
