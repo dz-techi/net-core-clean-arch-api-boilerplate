@@ -27,6 +27,13 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
 
     public async Task<T?> AddAsync(T entityDto, CancellationToken cancellationToken)
     {
+        if (entityDto.Id == Guid.Empty)
+        {
+            entityDto.Id = Guid.NewGuid();
+        }
+        
+        entityDto.CreatedDate = DateTime.UtcNow;
+        
         await Collection.InsertOneAsync(entityDto, cancellationToken: cancellationToken);
 
         return entityDto;

@@ -1,38 +1,42 @@
-using AspNetCoreCleanArchitecture.Domain.Models;
-using AspNetCoreCleanArchitecture.Infrastructure.Repositories.Interfaces;
+using AspNetCoreCleanArchitecture.Application.Commands.Product;
+using AspNetCoreCleanArchitecture.Application.Queries.Product;
+using AspNetCoreCleanArchitecture.Contracts.Requests.Product;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreCleanArchitecture.Api.Controllers;
 
-[ApiController]
-public class ProductController : Controller
+public class ProductController : BaseController
 {
-    private readonly IProductRepository _productRepository;
+    public ProductController(IMediator mediator) : base(mediator)
+    { }
 
-    public ProductController(IProductRepository productRepository)
-    {
-        _productRepository = productRepository;
-    }
-
-    [HttpGet("[controller]/{id:guid}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(id, cancellationToken);
-        // 1f7245b8-cf72-44b9-9cf0-85910d132903
-        return Ok(product);
+        var getProductQuery = new GetProductQuery(id);
+
+        var result = await _mediator.Send(getProductQuery, cancellationToken);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
     }
 
-    [HttpPost("[controller]")]
-    public async Task<IActionResult> AddAsync(CancellationToken cancellationToken)
+    [HttpPost]
+    public async Task<IActionResult> AddAsync([FromBody] AddProductRequest request, CancellationToken cancellationToken)
     {
-        var product = new ProductDto
+        var addProductCommand = new AddProductCommand(request);
+
+        var result = await _mediator.Send(addProductCommand, cancellationToken);
+
+        if (result == null)
         {
-            Id = Guid.NewGuid(),
-            Name = "Dainis Test",
-            CreatedDate = DateTime.UtcNow
-        };
-        
-        var result = await _productRepository.AddAsync(product, cancellationToken);
+            return BadRequest();
+        }
         
         return Ok(result);
     }
