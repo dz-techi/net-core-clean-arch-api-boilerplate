@@ -8,8 +8,12 @@ namespace AspNetCoreCleanArchitecture.Api.Controllers;
 
 public class ProductController : BaseController
 {
-    public ProductController(IMediator mediator) : base(mediator)
-    { }
+    private readonly ILogger<ProductController> _logger;
+    
+    public ProductController(ILogger<ProductController> logger, IMediator mediator) : base(mediator)
+    {
+        _logger = logger;
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)

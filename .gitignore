@@ -12,3 +12,6 @@ src/AspNetCoreCleanArchitecture.Domain/bin
 src/AspNetCoreCleanArchitecture.Domain/obj
 src/AspNetCoreCleanArchitecture.Infrastructure/bin
 src/AspNetCoreCleanArchitecture.Infrastructure/obj
+
+# Api Logs
+/src/AspNetCoreCleanArchitecture.Api/Logs
